@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="login.js"></script>
+</head>
+<body onload="checkIfUserIsLoggedIn();">
+    <img src="https://i.stack.imgur.com/34AD2.jpg" width="50px" id="pfp-display" />
+    <h1 id="display-username"></h1>
+    <button onclick="logOut();">Log Out</button><br>
+    <button onclick="changePassword();">Change Password</button><br>
+    <button onclick="changeUsername();">Change Username</button><br>
+    <p>Change Profile Picture:<br>
+    <input type="file" id="uploadfile" />
+
+<script>
+    // Get a reference to the file input
+    const fileInput = document.getElementById('uploadfile');
+
+    // Listen for the change event so we can capture the file
+    fileInput.addEventListener('change', (e) => {
+        // Get a reference to the file
+        const file = e.target.files[0];
+
+        // Encode the file using the FileReader API
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            localStorage.setItem("profilepicture", reader.result);
+            document.getElementById("pfp-display").src = reader.result;
+            // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+<br>Or: <button onclick="changeProfilePicture();">By URL</button></p>
+</body>
+</html>
